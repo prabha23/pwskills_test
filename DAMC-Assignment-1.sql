@@ -12,7 +12,7 @@ select * from actor;
 
 select * from customer;
 
-select country from country;
+select distinct country from country;
 
 select * from customer where active=1;
 
@@ -20,7 +20,7 @@ select rental_id from rental where customer_id=1;
 
 select * from film where rental_duration>5;
 
-select * from film where replacement_cost>15 and replacement_cost<20;
+select count(*) from film where replacement_cost>15 and replacement_cost<20;
 
 select count(distinct first_name) from actor;
 
