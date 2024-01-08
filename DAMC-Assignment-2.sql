@@ -6,7 +6,7 @@ select count(rental_id) AS total_rentals  from rental;
 select AVG(DATEDIFF(return_date, rental_date)) AS average_duration_in_days from rental;
 
 -- Question 3: Display the first name and last name of customers in uppercase. Hint: Use the UPPER () function.
-select UPPER(first_name) AS first_name, UPPER(last_name) AS last_name from actor;
+select UPPER(first_name) AS first_name, UPPER(last_name) AS last_name from customer;
 
 -- Question 4:Extract the month from the rental date and display it alongside the rental ID. 
 select rental_id, MONTH(rental_date) AS rental_month from rental;
@@ -38,8 +38,8 @@ INNER JOIN film_category fc ON f.film_id = fc.film_id GROUP BY fc.category_id;
 SELECT l.name AS language, AVG(f.rental_rate) AS avg_rental_rate FROM film f INNER JOIN language l ON f.language_id = l.language_id GROUP BY l.name;
 
 -- Question 3:Retrieve the customer names along with the total amount they've spent on rentals. Hint: JOIN customer, payment, and rental tables, then use SUM() and GROUP BY.
-SELECT c.first_name, c.last_name, SUM(p.amount) AS total_amount_spent
-FROM customer c INNER JOIN payment p ON c.customer_id = p.customer_id INNER JOIN rental r ON c.customer_id = r.customer_id
+SELECT concat(c.first_name,' ', c.last_name) as Name, SUM(p.amount) AS total_amount_spent
+FROM customer c Inner JOIN payment p ON c.customer_id = p.customer_id INNER JOIN rental r ON c.customer_id = r.customer_id
 GROUP BY c.customer_id;
 
 -- Question 4:List the titles of movies rented by each customer in a particular city (e.g., 'London'). Hint: JOIN customer, address, city, rental, inventory, and film tables, then use GROUP BY.
