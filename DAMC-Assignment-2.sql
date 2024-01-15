@@ -38,9 +38,9 @@ INNER JOIN film_category fc ON f.film_id = fc.film_id GROUP BY fc.category_id;
 SELECT l.name AS language, AVG(f.rental_rate) AS avg_rental_rate FROM film f INNER JOIN language l ON f.language_id = l.language_id GROUP BY l.name;
 
 -- Question 3:Retrieve the customer names along with the total amount they've spent on rentals. Hint: JOIN customer, payment, and rental tables, then use SUM() and GROUP BY.
-SELECT concat(c.first_name,' ', c.last_name) as Name, SUM(p.amount) AS total_amount_spent
-FROM customer c Inner JOIN payment p ON c.customer_id = p.customer_id INNER JOIN rental r ON c.customer_id = r.customer_id
-GROUP BY c.customer_id;
+SELECT c.customer_id,c.first_name,c.last_name,SUM(p.amount) AS total_amount_spent
+FROM customer c JOIN rental r ON c.customer_id = r.customer_id JOIN payment p ON r.rental_id = p.rental_id
+GROUP BY c.customer_id, c.first_name, c.last_name ORDER BY total_amount_spent DESC;
 
 -- Question 4:List the titles of movies rented by each customer in a particular city (e.g., 'London'). Hint: JOIN customer, address, city, rental, inventory, and film tables, then use GROUP BY.
 SELECT c.first_name, c.last_name, f.title AS title
